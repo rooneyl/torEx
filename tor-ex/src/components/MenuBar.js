@@ -1,27 +1,33 @@
 import React from "react";
+import Menu from "./Menu.js";
 
 export default class MenuBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedMenu: -1
+      menus: ["Magnet", "Seed", "Setting"]
     };
-    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleMenu(menu) {
-    this.setState({
-      selectedMagnet: menu
-    });
+  handleClick(menu) {
+    // TODO
+    // 0. vim error detaction fix(ale)
+    // 1. axios implementation
+    // 2. react popup
+    // 3. props icon
+    // 4. alignment of menus
+    console.log(menu);
   }
 
   render() {
-    return (
-      <div>
-        <h2>Mangnet</h2>
-        <h2>Torrent Seed</h2>
-        <h2>Setting</h2>
-      </div>
-    );
+    const deployMenu = menus => {
+      return menus.map((menu, i) => {
+        return (
+          <Menu onClick={() => this.handleClick(menu)} name={menu} key={i} />
+        );
+      });
+    };
+    return <div>{deployMenu(this.state.menus)}</div>;
   }
 }
