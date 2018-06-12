@@ -55,8 +55,12 @@ export default class MenuBar extends React.Component {
               }}
             >
               <label>
-                Person Name:
-                <input type="text" name="name" onChange={this.handleChange} />
+                Link:
+                <input
+                  type="text"
+                  name="name"
+                  onChange={this.handleChangeMagnet}
+                />
               </label>
               <button type="submit">Add</button>
             </form>
