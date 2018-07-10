@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import SignIn from "./components/SignIn";
-import Torrent from "./components/Torrent";
+import Torrent from "./components/Torrent-redux";
+import Nav from "./components/Nav";
 
 class App extends Component {
   render() {
@@ -12,9 +13,7 @@ class App extends Component {
       >
         {this.props.authorized ? (
           <div>
-            <header className="App-header">
-              <h1 className="App-title">Torrent External</h1>
-            </header>
+            <Nav />
             <Torrent />
           </div>
         ) : (

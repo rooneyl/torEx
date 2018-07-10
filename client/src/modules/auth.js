@@ -1,4 +1,5 @@
 import { handleActions } from "redux-actions";
+// import { URL_AUTH } from "../util/config";
 // import axios from "axios";
 
 const AUTHORIZE_PENDING = "AUTHORIZE_PENDING";
@@ -11,10 +12,13 @@ function requestToken(info) {
       resolve({ data: { token: info } });
     }, 3000);
   });
-  // return axios.post("/auth", info);
+  // return axios.post(URL_AUTH, info);
 }
 export const authorize = info => dispatch => {
-  dispatch({ type: AUTHORIZE_PENDING });
+  dispatch({
+    type: AUTHORIZE_PENDING,
+    payload: info
+  });
 
   return requestToken(info)
     .then(response => {
@@ -36,6 +40,7 @@ export const authorize = info => dispatch => {
 const initialState = {
   pending: false,
   error: false,
+  userInfo: {},
   payload: "",
   authorized: false
 };
@@ -46,7 +51,8 @@ export default handleActions(
       return {
         ...state,
         pending: true,
-        error: false
+        error: false,
+        userInfo: action.payload
       };
     },
 
