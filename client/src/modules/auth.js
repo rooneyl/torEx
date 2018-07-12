@@ -1,5 +1,4 @@
 import { handleActions } from "redux-actions";
-import { pendingTask, begin, end } from "react-redux-spinner";
 // import { URL_AUTH } from "../util/config";
 // import axios from "axios";
 
@@ -19,8 +18,7 @@ function requestToken(info) {
 export const signIn = userInfo => dispatch => {
   dispatch({
     type: AUTHORIZE_PENDING,
-    payload: userInfo,
-    [pendingTask]: begin
+    payload: userInfo
   });
 
   return requestToken(userInfo)
@@ -28,8 +26,7 @@ export const signIn = userInfo => dispatch => {
       localStorage.setItem("user", response.data.token);
       dispatch({
         type: AUTHORIZE_FULFILLED,
-        payload: response,
-        [pendingTask]: end
+        payload: response
       });
     })
     .catch(error => {
