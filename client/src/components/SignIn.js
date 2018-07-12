@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import * as auth from "../modules/auth";
 
 class SignIn extends Component {
-  submit = value => {
-    this.props.authorize.authorize(value);
+  submit = userInfo => {
+    this.props.auth.signIn(userInfo);
   };
 
   render() {
@@ -15,8 +16,10 @@ class SignIn extends Component {
 
     return (
       <div className="form">
-        <div className="container">
-          <h2>Sign In</h2>
+        <div className="container" style={{ textAlign: "center" }}>
+          <h2>
+            Torrent<br />External
+          </h2>
           <form onSubmit={handleSubmit(this.submit)}>
             <Field
               name="email"
@@ -31,17 +34,22 @@ class SignIn extends Component {
               type="password"
               placeholder="Password"
             />
-            <br />
-            <button type="submit">Sign In</button>
+            <h2>
+              <button type="submit">Sign In</button>
+            </h2>
           </form>
         </div>
-        Debug Info:
-        <br /> Pending: {this.props.pending ? "TRUE" : "FALSE"}
-        <br /> Error: {this.props.error ? "TRUE" : "FALSE"}
+        {this.props.error ? "!Error!" : <br />}
       </div>
     );
   }
 }
+
+SignIn.propTypes = {
+  error: PropTypes.bool,
+  auth: PropTypes.object,
+  handleSubmit: PropTypes.func
+};
 
 const signinForm = reduxForm({
   form: "signin"
@@ -49,10 +57,9 @@ const signinForm = reduxForm({
 
 export default connect(
   state => ({
-    pending: state.auth.pending,
     error: state.auth.error
   }),
   dispatch => ({
-    authorize: bindActionCreators(auth, dispatch)
+    auth: bindActionCreators(auth, dispatch)
   })
 )(signinForm);

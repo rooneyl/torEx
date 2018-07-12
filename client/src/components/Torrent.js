@@ -1,80 +1,45 @@
-import React from "react";
-import axios from "axios";
-import Popup from "reactjs-popup";
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-export default class MenuBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      magnetLink: ""
-    };
-    this.handleChangeMagnet = this.handleChangeMagnet.bind(this);
-    this.handleSubmitMagnet = this.handleSubmitMagnet.bind(this);
+import Nav from "./Nav";
+import File from "./File";
+import * as file from "../modules/file";
+
+class Torrent extends Component {
+  componentDidMount() {
+    const { userInfo } = this.props;
+    this.props.file.getFileList(userInfo);
   }
-
-  handleChangeMagnet(event) {
-    this.setState({ magnetLink: event.target.value });
-  }
-
-  handleSubmitMagnet(event) {
-    event.preventDefault();
-
-    const link = {
-      link: this.state.magnetLink
-    };
-
-    axios
-      .post(`https://httpbin.org/post`, { link })
-      .then(res => {
-        console.log("Post[Magnet] Success");
-        console.log(res);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log("Post[Magnet] Failed");
-        console.log(err);
-      });
-  }
-
-  // TODO
-  // 0. vim error detaction fix(ale)
-  // 1. axios implementation
-  // 2. react popup
-  // 3. props icon
-  // 4. alignment of menus
 
   render() {
+    const mapToFiles = files => {
+      return files.map(fileInfo => <File info={fileInfo} />);
+    };
+
     return (
-      <div>
-        <Popup trigger={<button className="button"> Magnet </button>}>
-          {close => (
-            <form
-              onSubmit={e => {
-                this.handleSubmitMagnet(e);
-                close();
-              }}
-            >
-              <label>
-                Link:
-                <input
-                  type="text"
-                  name="name"
-                  onChange={this.handleChangeMagnet}
-                />
-              </label>
-              <button type="submit">Add</button>
-            </form>
-          )}
-        </Popup>
-
-        <Popup trigger={<button className="button"> Seed </button>}>
-          <span> Seed content </span>
-        </Popup>
-
-        <Popup trigger={<button className="button"> Setting </button>}>
-          <span> Setting content </span>
-        </Popup>
+      <div style={{ opacity: this.props.initialized ? 1 : 0.4 }}>
+        <Nav />
+        {this.props.initialized ? (
+          <div>{mapToFiles(this.props.files)}</div>
+        ) : this.props.error ? (
+          <h1>Connection Error</h1>
+        ) : (
+          <h1>Initializing....</h1>
+        )}
       </div>
     );
   }
 }
+
+export default connect(
+  state => ({
+    userInfo: state.auth.userInfo,
+    initialized: state.file.initialized,
+    error: state.file.error,
+    files: state.file.files
+  }),
+  dispatch => ({
+    file: bindActionCreators(file, dispatch)
+  })
+)(Torrent);

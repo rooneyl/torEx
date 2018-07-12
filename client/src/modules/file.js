@@ -15,7 +15,7 @@ const GET_FILE_REJECTED = "GET_FILE_REJECTED";
 // };
 
 const getFileAPI = userInfo => {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve([
         {
@@ -23,14 +23,24 @@ const getFileAPI = userInfo => {
           size: 234,
           downloaded: 23,
           complete: false,
-          hash: "ASCCSDFA@#$!!"
+          hash: "ASCCSDFA@#$!!",
+          dir: false
         },
         {
           name: "File_B",
           size: 2340,
           downloaded: 2340,
           complete: true,
-          hash: "2342SF#G#@!@4"
+          hash: "2342SF#G#@!@4",
+          dir: false
+        },
+        {
+          name: "Folder_A",
+          size: -1,
+          downloaded: -1,
+          complete: true,
+          hash: "@SSD#@@SDAF",
+          dir: true
         }
       ]);
     }, 1000);
@@ -55,7 +65,7 @@ export const getFileList = userInfo => dispatch => {
   dispatch({ type: GET_FILE_PENDING });
   return getFileAPI(userInfo)
     .then(response => {
-			// find 
+      // find
       dispatch({
         type: GET_FILE_FUFILLED,
         payload: response
