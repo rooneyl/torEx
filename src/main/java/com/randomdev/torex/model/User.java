@@ -27,7 +27,10 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @Column(name="active")
+    private int active;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
@@ -42,6 +45,18 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public User(User user) {
+        this.active = user.getActive();
+        this.email = user.email;
+        this.roles = user.roles;
+        this.username = user.username;
+        this.id = user.id;
+    }
+
+    private int getActive() {
+        return active;
     }
 
     public Integer getId() {
