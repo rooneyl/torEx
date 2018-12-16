@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import * as auth from "../modules/auth";
+import * as auth from '../modules/auth';
 
 class SignIn extends Component {
   submit = userInfo => {
@@ -16,30 +16,22 @@ class SignIn extends Component {
 
     return (
       <div className="form">
-        <div className="container" style={{ textAlign: "center" }}>
+        <div className="container" style={{ textAlign: 'center' }}>
           <h2>
-            Torrent<br />External
+            Torrent
+            <br />
+            External
           </h2>
           <form onSubmit={handleSubmit(this.submit)}>
-            <Field
-              name="email"
-              component="input"
-              type="text"
-              placeholder="Email"
-            />
+            <Field name="email" component="input" type="text" placeholder="Email" />
             <br />
-            <Field
-              name="password"
-              component="input"
-              type="password"
-              placeholder="Password"
-            />
+            <Field name="password" component="input" type="password" placeholder="Password" />
             <h2>
               <button type="submit">Sign In</button>
             </h2>
           </form>
         </div>
-        {this.props.error ? "!Error!" : <br />}
+        {this.props.error ? '!Error!' : <br />}
       </div>
     );
   }
@@ -52,7 +44,7 @@ SignIn.propTypes = {
 };
 
 const signinForm = reduxForm({
-  form: "signin"
+  form: 'signin'
 })(SignIn);
 
 export default connect(

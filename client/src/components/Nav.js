@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import Popup from "reactjs-popup";
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Popup from 'reactjs-popup';
 
-import * as auth from "../modules/auth";
+import * as auth from '../modules/auth';
 
 class Nav extends Component {
   render() {

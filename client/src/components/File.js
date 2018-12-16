@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class File extends Component {
   render() {
@@ -7,7 +7,7 @@ class File extends Component {
     return (
       <div
         style={{
-          border: "1px solid black"
+          border: '1px solid black'
         }}
       >
         FileName : {name}

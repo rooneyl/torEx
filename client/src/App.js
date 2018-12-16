@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import SignIn from "./components/SignIn";
-import Torrent from "./components/Torrent";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import SignIn from './components/SignIn';
+import Torrent from './components/Torrent';
 
 class App extends Component {
   render() {
@@ -10,8 +10,8 @@ class App extends Component {
       <div
         className="App"
         style={{
-          display: "flex",
-          justifyContent: "center",
+          display: 'flex',
+          justifyContent: 'center',
           opacity: this.props.pending ? 0.4 : 1
         }}
       >
