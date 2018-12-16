@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
 
-import App from "./App";
-import modules from "./modules";
+import App from './App';
+import modules from './modules';
 
-import { createLogger } from "redux-logger";
-import ReduxThunk from "redux-thunk";
 // import promiseMiddleware from "redux-promise-middleware";
 
 const logger = createLogger();
@@ -25,5 +25,5 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

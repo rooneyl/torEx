@@ -1,11 +1,11 @@
-import { handleActions } from "redux-actions";
+import { handleActions } from 'redux-actions';
 // import { URL_AUTH } from "../util/config";
 // import axios from "axios";
 
-const AUTHORIZE_PENDING = "AUTHORIZE_PENDING";
-const AUTHORIZE_FULFILLED = "AUTHORIZE_FULFILLED";
-const AUTHORIZE_REJECTED = "AUTHORIZE_REJECTED";
-const AUTHORIZE_RESET = "AUTHORIZE_RESET";
+const AUTHORIZE_PENDING = 'AUTHORIZE_PENDING';
+const AUTHORIZE_FULFILLED = 'AUTHORIZE_FULFILLED';
+const AUTHORIZE_REJECTED = 'AUTHORIZE_REJECTED';
+const AUTHORIZE_RESET = 'AUTHORIZE_RESET';
 
 function requestToken(info) {
   return new Promise(resolve => {
@@ -23,7 +23,7 @@ export const signIn = userInfo => dispatch => {
 
   return requestToken(userInfo)
     .then(response => {
-      localStorage.setItem("user", response.data.token);
+      localStorage.setItem('user', response.data.token);
       dispatch({
         type: AUTHORIZE_FULFILLED,
         payload: response
@@ -49,47 +49,39 @@ const initialState = {
   pending: false,
   error: false,
   userInfo: {},
-  payload: "",
+  payload: '',
   authorized: false
 };
 
 export default handleActions(
   {
-    [AUTHORIZE_PENDING]: (state, action) => {
-      return {
-        ...state,
-        pending: true,
-        error: false,
-        userInfo: action.payload
-      };
-    },
+    [AUTHORIZE_PENDING]: (state, action) => ({
+      ...state,
+      pending: true,
+      error: false,
+      userInfo: action.payload
+    }),
 
-    [AUTHORIZE_FULFILLED]: (state, action) => {
-      return {
-        ...state,
-        pending: false,
-        authorized: true,
-        payload: action.payload
-      };
-    },
+    [AUTHORIZE_FULFILLED]: (state, action) => ({
+      ...state,
+      pending: false,
+      authorized: true,
+      payload: action.payload
+    }),
 
-    [AUTHORIZE_REJECTED]: (state, action) => {
-      return {
-        ...state,
-        pending: false,
-        error: true
-      };
-    },
+    [AUTHORIZE_REJECTED]: (state, action) => ({
+      ...state,
+      pending: false,
+      error: true
+    }),
 
-    [AUTHORIZE_RESET]: (state, acition) => {
-      return {
-        pending: false,
-        error: false,
-        userInfo: {},
-        payload: "",
-        authorized: false
-      };
-    }
+    [AUTHORIZE_RESET]: (state, acition) => ({
+      pending: false,
+      error: false,
+      userInfo: {},
+      payload: '',
+      authorized: false
+    })
   },
   initialState
 );

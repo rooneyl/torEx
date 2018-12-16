@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Nav from "./Nav";
-import File from "./File";
-import * as file from "../modules/file";
+import Nav from './Nav';
+import File from './File';
+import * as file from '../modules/file';
 
 class Torrent extends Component {
   componentDidMount() {

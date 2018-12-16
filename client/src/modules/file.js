@@ -1,10 +1,10 @@
-import { handleActions } from "redux-actions";
-import { URL_GETFILE } from "../util/config";
-import axios from "axios";
+import axios from 'axios';
+import { handleActions } from 'redux-actions';
+import { URL_GETFILE } from '../util/config';
 
-const GET_FILE_PENDING = "GET_FILE_PENDING";
-const GET_FILE_FUFILLED = "GET_FILE_FUFILLED";
-const GET_FILE_REJECTED = "GET_FILE_REJECTED";
+const GET_FILE_PENDING = 'GET_FILE_PENDING';
+const GET_FILE_FUFILLED = 'GET_FILE_FUFILLED';
+const GET_FILE_REJECTED = 'GET_FILE_REJECTED';
 
 // const getFileAPI = userInfo => {
 //   return axios.get(URL_GETFILE, userInfo);
@@ -14,52 +14,50 @@ const GET_FILE_REJECTED = "GET_FILE_REJECTED";
 //   return axios.get("..", userInfo);
 // };
 
-const getFileAPI = userInfo => {
-  return new Promise((resolve, reject) => {
+const getFileAPI = userInfo =>
+  new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve([
         {
-          name: "File_A",
+          name: 'File_A',
           size: 234,
           downloaded: 23,
           complete: false,
-          hash: "ASCCSDFA@#$!!",
+          hash: 'ASCCSDFA@#$!!',
           dir: false
         },
         {
-          name: "File_B",
+          name: 'File_B',
           size: 2340,
           downloaded: 2340,
           complete: true,
-          hash: "2342SF#G#@!@4",
+          hash: '2342SF#G#@!@4',
           dir: false
         },
         {
-          name: "Folder_A",
+          name: 'Folder_A',
           size: -1,
           downloaded: -1,
           complete: true,
-          hash: "@SSD#@@SDAF",
+          hash: '@SSD#@@SDAF',
           dir: true
         }
       ]);
     }, 1000);
   });
-};
 
-const updateFileAPI = (userInfo, fileInfo) => {
-  return new Promise(resolve => {
+const updateFileAPI = (userInfo, fileInfo) =>
+  new Promise(resolve => {
     setTimeout(() => {
       resolve({
-        name: "File_A",
+        name: 'File_A',
         size: 234,
         downloaded: 103,
         complete: false,
-        hash: "ASCCSDFA@#$!!"
+        hash: 'ASCCSDFA@#$!!'
       });
     }, 1000);
   });
-};
 
 export const getFileList = userInfo => dispatch => {
   dispatch({ type: GET_FILE_PENDING });
@@ -78,8 +76,8 @@ export const getFileList = userInfo => dispatch => {
     });
 };
 
-export const updateFileList = (userInfo, fileInfo) => dispatch => {
-  return updateFileList(userInfo, fileInfo)
+export const updateFileList = (userInfo, fileInfo) => dispatch =>
+  updateFileList(userInfo, fileInfo)
     .then(response => {
       dispatch({
         type: GET_FILE_FUFILLED,
@@ -91,7 +89,6 @@ export const updateFileList = (userInfo, fileInfo) => dispatch => {
         type: GET_FILE_REJECTED
       });
     });
-};
 
 const initialState = {
   initialized: false,
@@ -101,29 +98,23 @@ const initialState = {
 
 export default handleActions(
   {
-    [GET_FILE_PENDING]: (state, action) => {
-      return {
-        ...state,
-        initialized: false,
-        error: false
-      };
-    },
+    [GET_FILE_PENDING]: (state, action) => ({
+      ...state,
+      initialized: false,
+      error: false
+    }),
 
-    [GET_FILE_FUFILLED]: (state, action) => {
-      return {
-        ...state,
-        initialized: true,
-        error: false,
-        files: action.payload
-      };
-    },
+    [GET_FILE_FUFILLED]: (state, action) => ({
+      ...state,
+      initialized: true,
+      error: false,
+      files: action.payload
+    }),
 
-    [GET_FILE_REJECTED]: (state, action) => {
-      return {
-        ...state,
-        error: true
-      };
-    }
+    [GET_FILE_REJECTED]: (state, action) => ({
+      ...state,
+      error: true
+    })
   },
   initialState
 );
