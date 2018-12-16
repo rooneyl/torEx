@@ -92,7 +92,32 @@
         </dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<!-- Dev Env. Properties -->
+			<properties>
+				<profile.name>${profile.name}</profile.name>
+				<!-- Database Properties -->
+				<!--<db.driverClass>${db.driverClass}</db.driverClass>-->
+				<db.connectionHost>${db.connectionHost}</db.connectionHost>
+				<db.connectionPort>${db.connectionPort}</db.connectionPort>
+				<db.username>${db.username}</db.username>
+				<db.password>${db.password}</db.password>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
